@@ -2,6 +2,8 @@ import { Math } from './Math';
 
 describe('Testing Math library', () => {
 
+	
+
 	it('should sum two numbers', () => {
 		const response = Math.sum(5, 10);
 		expect(response).toBe(15);
@@ -24,6 +26,8 @@ describe('Testing Math library', () => {
 		const response2 = Math.div(3, 0);
 		expect(response2).toBe(false);
 	});
+
+
 
 
 });
