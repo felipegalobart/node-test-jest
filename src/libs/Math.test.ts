@@ -22,7 +22,7 @@ describe('Testing Math library', () => {
 		expect(response).toBe(3);
 
 		const response2 = Math.div(3, 0);
-		expect(response2).toBe(null);
+		expect(response2).toBe(false);
 	});
 
 
