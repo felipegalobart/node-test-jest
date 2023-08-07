@@ -15,4 +15,36 @@ describe('Testing user service', () => {
         expect(newUser).toHaveProperty('id');
         expect(newUser.email).toBe(email);
     });
+
+    it('should not allow to create a user with existing email', async () => {
+        const newUser = await UserService.createUser(email, password) as UserInstance;
+        expect(newUser).toBeInstanceOf(Error);
+    });
+
+    it('Should find a user by email', async () => {
+        const user = await UserService.findByEmail(email) as UserInstance;
+        expect(user.email).toBe(email);
+    })
+
+    it('should match password from database', async () => {
+        const user = await UserService.findByEmail(email) as UserInstance;
+        const match = UserService.matchPassword(password, user.password);
+        expect(match).toBeTruthy();
+    });
+
+    it('should not match password from database', async () => {
+        const user = await UserService.findByEmail(email) as UserInstance;
+        const match = UserService.matchPassword('invalid', user.password);
+        expect(match).toBeFalsy();
+    });
+
+    it('should return a list of users', async () => {
+        const users = await UserService.all();
+        expect(users.length).toBeGreaterThanOrEqual(1);
+        for (let i in users) {
+            expect(users[i]).toBeInstanceOf(User);
+        }
+    });
+
+
 });
